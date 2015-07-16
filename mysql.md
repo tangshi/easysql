@@ -1,6 +1,6 @@
 # MYSQL版本的使用方法
 
-#### 先切换到`mysql`分支，再看下文！
+#### 先切换到[mysql分支](https://github.com/tangshi/easysql/tree/mysql)，再看下文！
 
 #### 1. 定义模型
  
