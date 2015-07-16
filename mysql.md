@@ -28,7 +28,6 @@ class User(Model):
     image = StringField(ddl='varchar(500)')
     created_at = FloatField(updatable=False, default=time.time)
 
-
 ```
 
 #### 2. 初始化数据库
@@ -57,31 +56,6 @@ create table users (
     primary key (`id`)
 ) engine=innodb default charset=utf8;
 
-create table blogs (
-    `id` varchar(50) not null,
-    `user_id` varchar(50) not null,
-    `user_name` varchar(50) not null,
-    `user_image` varchar(500) not null,
-    `name` varchar(50) not null,
-    `summary` varchar(200) not null,
-    `content` mediumtext not null,
-    `created_at` real not null,
-    key `idx_created_at` (`created_at`),
-    primary key (`id`)
-) engine=innodb default charset=utf8;
-
-create table comments (
-    `id` varchar(50) not null,
-    `blog_id` varchar(50) not null,
-    `user_id` varchar(50) not null,
-    `user_name` varchar(50) not null,
-    `user_image` varchar(500) not null,
-    `content` mediumtext not null,
-    `created_at` real not null,
-    key `idx_created_at` (`created_at`),
-    primary key (`id`)
-) engine=innodb default charset=utf8;
-
 ```
 
 把SQL脚本放到MySQL命令行里执行：
@@ -91,11 +65,9 @@ create table comments (
 #### 3. 操作数据库
 
 ```
-
 # test_db.py
 
 from models import User
-
 from easysql import db
 
 db.create_engine(user='www-data', password='www-data', database='awesome')
@@ -115,5 +87,3 @@ print 'find user\'s name:', u1.name
 u1.delete()
 
 ```
-
-
