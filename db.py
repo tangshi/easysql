@@ -144,17 +144,13 @@ class _Engine(object):
     def connect(self):
         return self._connect()
 
-def create_engine(user, password, database, host='127.0.0.1', port=3306, **kw):
+def create_engine(database, **kw):
     import sqlite3
     global engine
     if engine is not None:
         raise DBError('Engine is already initialized.')
-    params = dict(user=user, password=password, database=database, host=host, port=port)
-    defaults = dict(use_unicode=True, charset='utf8', collation='utf8_general_ci', autocommit=False)
-    for k, v in defaults.iteritems():
-        params[k] = kw.pop(k, v)
+    params = dict(database=database)
     params.update(kw)
-    params['buffered'] = True
     engine = _Engine(lambda: sqlite3.connect(**params))
     # test connection...
     logging.info('Init sqlite3 engine <%s> ok.' % hex(id(engine)))
@@ -317,7 +313,6 @@ def _select(sql, first, *args):
     ' execute select SQL and return unique result or list results.'
     global _db_ctx
     cursor = None
-    sql = sql.replace('?', '%s')
     logging.info('SQL: %s, ARGS: %s' % (sql, args))
     try:
         cursor = _db_ctx.connection.cursor()
@@ -416,7 +411,6 @@ def select(sql, *args):
 def _update(sql, *args):
     global _db_ctx
     cursor = None
-    sql = sql.replace('?', '%s')
     logging.info('SQL: %s, ARGS: %s' % (sql, args))
     try:
         cursor = _db_ctx.connection.cursor()
@@ -476,7 +470,7 @@ def update(sql, *args):
 
 if __name__=='__main__':
     logging.basicConfig(level=logging.DEBUG)
-    create_engine('www-data', 'www-data', 'test')
+    create_engine('test.sqlite')
     update('drop table if exists user')
     update('create table user (id int primary key, name text, email text, passwd text, last_modified real)')
     import doctest
