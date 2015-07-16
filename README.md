@@ -10,5 +10,5 @@
 2. Mac OS X 自带 sqlite3，不需要安装，mysql则需要自行下载并安装
 3. sqlite3 非常轻便，相比较而言，mysql还是太笨重了，做点小应用 sqlite3 足够了
 
-sqlite3 版的使用方法，请戳[这里](sqlite3.md)
+sqlite3 版的使用方法戳[这里](sqlite3.md)。
 

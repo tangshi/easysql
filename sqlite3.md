@@ -1,6 +1,6 @@
 # SQLITE3版本的使用方法
 
-#### 先切换到[sqlite3分支](https://github.com/tangshi/easysql/tree/sqlite3)，再看下文！
+#### 先确认已切换到[sqlite3分支](https://github.com/tangshi/easysql/tree/sqlite3)，再看下文！
 
 #### 1. 定义模型
  
