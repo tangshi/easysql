@@ -1,6 +1,6 @@
-# MYSQL版本的使用方法
+# SQLITE3版本的使用方法
 
-#### 先确认已切换到[mysql分支](https://github.com/tangshi/easysql/tree/mysql)，再看下文！
+#### 先确认已切换到[sqlite3分支](https://github.com/tangshi/easysql/tree/sqlite3)，再看下文！
 
 #### 1. 定义模型
  
@@ -33,17 +33,9 @@ class User(Model):
 #### 2. 初始化数据库
 
 ```
--- schema.sql
+$ sqlite3 /path/to/awesome.db
 
-drop database if exists awesome;
-
-create database awesome;
-
-use awesome;
-
-grant select, insert, update, delete on awesome.* to 'www-data'@'localhost' identified by 'www-data';
-
-create table users (
+sqlite> create table users (
     `id` varchar(50) not null,
     `email` varchar(50) not null,
     `password` varchar(50) not null,
@@ -51,16 +43,12 @@ create table users (
     `name` varchar(50) not null,
     `image` varchar(500) not null,
     `created_at` real not null,
-    unique key `idx_email` (`email`),
-    key `idx_created_at` (`created_at`),
-    primary key (`id`)
-) engine=innodb default charset=utf8;
+    primary key (`id`) 
+  );
+
+$ .tables
 
 ```
-
-把SQL脚本放到MySQL命令行里执行：
-
-`$ mysql -u root -p < schema.sql`
 
 #### 3. 操作数据库
 
@@ -70,7 +58,8 @@ create table users (
 from models import User
 from easysql import db
 
-db.create_engine(user='www-data', password='www-data', database='awesome')
+# sqlite3 是基于文件的数据库，初始化时要指定数据库的文件名
+db.create_engine(database='/path/to/awesome.db')
 
 # 新建一条记录
 u = User(name='Test', email='test@example.com', password='1234567890', image='about:blank')
